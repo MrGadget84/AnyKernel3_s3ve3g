@@ -9,6 +9,7 @@ do.devicecheck=1
 do.cleanup=1
 do.cleanuponabort=0
 do.modules=1
+dump_dtb=1
 device.name1=s3ve3g
 device.name2=s3ve3ds
 device.name3=GT-I9301I
