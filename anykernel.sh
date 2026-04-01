@@ -27,17 +27,20 @@ set_perm_recursive 0 0 750 750 $RAMDISK/init* $RAMDISK/sbin;
 } # end attributes
 
 # boot shell variables
-# BLOCK=/dev/block/platform/msm_sdcc.1/by-name/boot;
-block=boot
-IS_SLOT_DEVICE=0;
-RAMDISK_COMPRESSION=auto;
-PATCH_VBMETA_FLAG=auto;
+block=/dev/block/platform/msm_sdcc.1/by-name/boot;
+is_slot_device=0;
+ramdisk_compression=auto;
+patch_vbmeta_flag=false;
 
 # import functions/variables and setup patching - see for reference (DO NOT REMOVE)
 . tools/ak3-core.sh;
 
 # boot install
 dump_boot;
+
+if [ -f $home/dtb ]; then
+  cat $home/zImage $home/dtb > $home/zImage-dtb;
+fi
 
 write_boot;
 ## end boot install
