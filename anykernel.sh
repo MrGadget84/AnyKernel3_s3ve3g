@@ -10,11 +10,8 @@ do.cleanup=1
 do.cleanuponabort=0
 do.modules=1
 dump_dtb=1
-device.name1=s3ve3g
-device.name2=s3ve3ds
-device.name3=GT-I9301I
-device.name4=GT-I9300I
-device.name5=s3ve
+device.name1=chagalllte
+device.name2=SM-T805
 supported.versions=
 '; } # end properties
 
