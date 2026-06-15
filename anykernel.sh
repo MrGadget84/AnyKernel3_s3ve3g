@@ -28,7 +28,7 @@ set_perm_recursive 0 0 750 750 $RAMDISK/init* $RAMDISK/sbin;
 block=/dev/block/by-name/boot;
 is_slot_device=0;
 ramdisk_compression=auto;
-patch_vbmeta_flag=true;
+patch_vbmeta_flag=false;
 
 # import functions/variables and setup patching - see for reference (DO NOT REMOVE)
 . tools/ak3-core.sh;
