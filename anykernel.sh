@@ -27,7 +27,7 @@ set_perm_recursive 0 0 750 750 $RAMDISK/init* $RAMDISK/sbin;
 # boot shell variables
 block=/dev/block/by-name/boot;
 is_slot_device=0;
-ramdisk_compression=auto;
+ramdisk_compression=gz;
 patch_vbmeta_flag=false;
 
 # import functions/variables and setup patching - see for reference (DO NOT REMOVE)
