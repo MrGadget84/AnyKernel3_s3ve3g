@@ -28,7 +28,7 @@ set_perm_recursive 0 0 750 750 $RAMDISK/init* $RAMDISK/sbin;
 block=/dev/block/by-name/boot;
 is_slot_device=0;
 ramdisk_compression=gz;
-patch_vbmeta_flag=false;
+patch_vbmeta_flag=true;
 
 # import functions/variables and setup patching - see for reference (DO NOT REMOVE)
 . tools/ak3-core.sh;
@@ -37,4 +37,5 @@ patch_vbmeta_flag=false;
 dump_boot;
 
 write_boot;
+flash_generic dtbo; 
 ## end boot install
