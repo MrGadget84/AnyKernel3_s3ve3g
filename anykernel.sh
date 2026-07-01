@@ -4,7 +4,7 @@
 ### AnyKernel setup
 # global properties
 properties() { '
-kernel.string=Custom Kernel for Galaxy A32
+kernel.string=
 do.devicecheck=1
 do.cleanup=1
 do.cleanuponabort=1
