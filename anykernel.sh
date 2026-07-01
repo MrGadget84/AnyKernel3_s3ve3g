@@ -8,7 +8,7 @@ kernel.string=
 do.devicecheck=1
 do.cleanup=1
 do.cleanuponabort=1
-do.modules=0
+do.modules=1
 dump_dtb=0
 device.name1=a32
 device.name2=SM-A325F
@@ -35,11 +35,8 @@ patch_vbmeta_flag=false;
 # boot install
 dump_boot;
 
-# patch_cmdline "skip_initramfs" "skip_initramfs"
-
 write_boot;
 
 echo -n "SEANDROIDENFORCE" >> /tmp/anykernel/new-boot.img;
-
 ## end boot install
 
