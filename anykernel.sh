@@ -8,6 +8,7 @@ kernel.string=
 do.devicecheck=1
 do.cleanup=1
 do.cleanuponabort=1
+do.skipmagisk=1;
 do.modules=1
 dump_dtb=0
 device.name1=a32
@@ -26,7 +27,7 @@ set_perm_recursive 0 0 750 750 $RAMDISK/init* $RAMDISK/sbin;
 # boot shell variables
 block=/dev/block/by-name/boot;
 is_slot_device=0;
-ramdisk_compression=auto;
+ramdisk_compression=keep;
 patch_vbmeta_flag=true;
 
 # import functions/variables and setup patching - see for reference (DO NOT REMOVE)
@@ -35,8 +36,8 @@ patch_vbmeta_flag=true;
 # boot install
 dump_boot;
 
-write_boot;
+echo -n "SEANDROIDENFORCE" >> $home/new-boot.img;
 
-echo -n "SEANDROIDENFORCE" >> /tmp/anykernel/new-boot.img;
+write_boot;
 ## end boot install
 
