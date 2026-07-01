@@ -4,18 +4,17 @@
 ### AnyKernel setup
 # global properties
 properties() { '
-kernel.string=
+kernel.string=Custom Kernel for Galaxy A32
 do.devicecheck=1
 do.cleanup=1
 do.cleanuponabort=1
-do.modules=1
+do.modules=0
 dump_dtb=0
 device.name1=a32
 device.name2=SM-A325F
 device.name3=a325f
 supported.versions=
 '; } # end properties
-
 
 ### AnyKernel install
 ## boot files attributes
@@ -27,8 +26,8 @@ set_perm_recursive 0 0 750 750 $RAMDISK/init* $RAMDISK/sbin;
 # boot shell variables
 block=/dev/block/by-name/boot;
 is_slot_device=0;
-ramdisk_compression=gz;
-patch_vbmeta_flag=true;
+ramdisk_compression=auto;
+patch_vbmeta_flag=false;
 
 # import functions/variables and setup patching - see for reference (DO NOT REMOVE)
 . tools/ak3-core.sh;
@@ -36,6 +35,11 @@ patch_vbmeta_flag=true;
 # boot install
 dump_boot;
 
+# patch_cmdline "skip_initramfs" "skip_initramfs"
+
 write_boot;
-flash_generic dtbo; 
+
+echo -n "SEANDROIDENFORCE" >> /tmp/anykernel/new-boot.img;
+
 ## end boot install
+
