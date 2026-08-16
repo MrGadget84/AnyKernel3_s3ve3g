@@ -4,7 +4,7 @@
 ### AnyKernel setup
 # global properties
 properties() { '
-kernel.string=
+kernel.string=White Kernel Project - Galaxy A32
 do.devicecheck=1
 do.modules=0
 do.systemless=1
