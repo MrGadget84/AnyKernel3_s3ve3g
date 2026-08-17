@@ -4,7 +4,7 @@
 ### AnyKernel setup
 # global properties
 properties() { '
-kernel.string=White Kernel Project - Galaxy A32
+kernel.string=
 do.devicecheck=1
 do.modules=0
 do.systemless=1
@@ -14,7 +14,7 @@ device.name1=a32
 device.name2=SM-A325F
 device.name3=SM-A325M
 device.name4=SM-A325N
-device.name5=
+device.name5=a32xxx
 supported.versions=
 supported.patchlevels=
 supported.vendorpatchlevels=
