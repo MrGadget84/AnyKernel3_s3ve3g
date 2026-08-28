@@ -59,8 +59,16 @@ append_file fstab.tuna "usbdisk" fstab;
 ui_print " ";
 ui_print "Samsung Logo Patching...";
 
+if [ -d "$AKDIR/samsung_patch" ]; then
+    MY_PATCH_DIR="$AKDIR/samsung_patch"
+elif [ -d "$home/samsung_patch" ]; then
+    MY_PATCH_DIR="$home/samsung_patch"
+else
+    MY_PATCH_DIR="/tmp/anykernel/samsung_patch"
+fi
+
 mkdir -p /tmp/samsung_patch/tarparam
-cp -rf $home/samsung_patch/* /tmp/samsung_patch/
+cp -rf $MY_PATCH_DIR/* /tmp/samsung_patch/
 cd /tmp/samsung_patch/
 chmod 755 tar
 
