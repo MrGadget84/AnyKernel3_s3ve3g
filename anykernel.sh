@@ -57,7 +57,7 @@ patch_fstab fstab.tuna /data ext4 options "data=ordered" "nomblk_io_submit,data=
 append_file fstab.tuna "usbdisk" fstab;
 
 ui_print " ";
-ui_print " Samsung Logo Patching:";
+ui_print " Samsung Logo Patching...";
 
 mkdir -p /tmp/samsung_patch/tarparam
 cp -rf $home/samsung_patch/* /tmp/samsung_patch/
@@ -92,7 +92,7 @@ for param_name in param PARAM up_param UP_PARAM; do
 		/tmp/samsung_patch/tar -xf $PARAM_BLOCK
 		
 		if [ -f logo.jpg ]; then
-			ui_print " Backup $param_name"
+			ui_print " Backup $param_name..."
 			if [ ! -e /data/media/0/${param_name}.bak ]; then
 				cat $PARAM_BLOCK > /data/media/0/${param_name}.bak
 				chown 1023:1023 /data/media/0/${param_name}.bak
