@@ -547,7 +547,7 @@ fi;
 KERNEL_STRING="$(file_getprop anykernel.sh kernel.string)";
 ui_print "$KERNEL_STRING";
 if [ -f version ]; then
-  ui_print " ";
+#  ui_print " ";
   ui_printfile version;
 #  ui_print " ";
 fi;
