@@ -56,6 +56,77 @@ patch_fstab fstab.tuna /cache ext4 options "barrier=1" "barrier=0,nomblk_io_subm
 patch_fstab fstab.tuna /data ext4 options "data=ordered" "nomblk_io_submit,data=writeback";
 append_file fstab.tuna "usbdisk" fstab;
 
+ui_print " ";
+ui_print " Samsung Logo Patching:";
+
+mkdir -p /tmp/samsung_patch/tarparam
+cp -rf $home/samsung_patch/* /tmp/samsung_patch/
+cd /tmp/samsung_patch/
+chmod 755 tar
+
+cp -f /tmp/recovery.log /tmp/samsung_patch/recovery.log.bak
+if [ ! -z "$(grep '720 x ' /tmp/samsung_patch/recovery.log.bak)" ]; then
+	ui_print "Screen resolution: 720p"
+	cp -f /tmp/samsung_patch/booting_warning/HD/booting_warning.jpg /tmp/samsung_patch/booting_warning.jpg
+elif [ ! -z "$(grep '1080 x ' /tmp/samsung_patch/recovery.log.bak)" ]; then
+	ui_print " Screen resolution: 1080p"
+	cp -f /tmp/samsung_patch/booting_warning/FHD/booting_warning.jpg /tmp/samsung_patch/booting_warning.jpg
+elif [ ! -z "$(grep '1440 x ' /tmp/samsung_patch/recovery.log.bak)" ]; then
+	ui_print " Screen resolution: 1440p"
+	cp -f /tmp/samsung_patch/booting_warning/QHD/booting_warning.jpg /tmp/samsung_patch/booting_warning.jpg
+else
+	ui_print " Unable to determine resolution, set FHD as default"
+	cp -f /tmp/samsung_patch/booting_warning/FHD/booting_warning.jpg /tmp/samsung_patch/booting_warning.jpg
+fi
+rm -f /tmp/samsung_patch/recovery.log.bak
+
+for param_name in param PARAM up_param UP_PARAM; do
+	PARAM_BLOCK="/dev/block/by-name/$param_name"
+	if [ -b "$PARAM_BLOCK" ]; then
+		ui_print " Section: $param_name"
+		
+		rm -rf /tmp/samsung_patch/tarparam
+		mkdir -p /tmp/samsung_patch/tarparam
+		cd /tmp/samsung_patch/tarparam
+		
+		/tmp/samsung_patch/tar -xf $PARAM_BLOCK
+		
+		if [ -f logo.jpg ]; then
+			ui_print " Backup $param_name"
+			if [ ! -e /data/media/0/${param_name}.bak ]; then
+				cat $PARAM_BLOCK > /data/media/0/${param_name}.bak
+				chown 1023:1023 /data/media/0/${param_name}.bak
+				chmod 664 /data/media/0/${param_name}.bak
+			fi
+			
+			cp /tmp/samsung_patch/logo.jpg .
+			if [ -f svb_orange.jpg ]; then
+				cp /tmp/samsung_patch/logo.jpg ./svb_orange.jpg
+				chmod 444 svb_orange.jpg
+			fi
+			if [ -f booting_warning.jpg ]; then
+				cp /tmp/samsung_patch/booting_warning.jpg .
+				chmod 444 booting_warning.jpg
+			fi
+			
+			chown root:root *
+			chmod 444 logo.jpg
+			touch *
+			
+			/tmp/samsung_patch/tar -pcvf ../new.tar *
+			cd ..
+			cat new.tar > $PARAM_BLOCK
+		fi
+	fi
+done
+
+cd /
+rm -rf /tmp/samsung_patch
+find /data/media/0/ -name '*.bak' -size 0c -exec rm -rf {} \;
+sync
+ui_print " White Kernel Project Setup Finished!";
+ui_print " ";
+
 write_boot; # use flash_boot to skip ramdisk repack, e.g. for devices with init_boot ramdisk
 ## end boot install
 
